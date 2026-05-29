@@ -45,7 +45,7 @@ elif sys.platform == "darwin":
     subprocess.run(["brew", "install", "portaudio"])
 elif sys.platform == "win32":
     subprocess.run(["vcpkg", "install", "portaudio:x64-windows-static"])
-    subprocess.run(["$env:VCPKG_PATH", "=", "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static"])
+    subprocess.run(["$env:VCPKG_PATH", "=", "'$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static'"])
 
 def setup_extension():
     pyaudio_module_sources = [
