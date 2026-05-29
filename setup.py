@@ -45,6 +45,7 @@ elif sys.platform == "darwin":
     subprocess.run(["brew", "install", "portaudio"])
 elif sys.platform == "win32":
     subprocess.run(["vcpkg", "install", "portaudio:x64-windows-static"])
+    os.putenv('COMSPEC',r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe')
     subprocess.run(["$env:VCPKG_PATH", "=", "'$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static'"], shell=True)
 
 def setup_extension():
