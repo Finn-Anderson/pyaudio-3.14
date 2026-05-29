@@ -44,7 +44,7 @@ if sys.platform == "linux" or sys.platform == "linux2":
 elif sys.platform == "darwin":
     subprocess.run(["brew", "install", "portaudio"])
 elif sys.platform == "win32":
-    subprocess.run(["vcpkg", "apt-get", "portaudio:x64-windows-static"])
+    subprocess.run(["vcpkg", "install", "portaudio:x64-windows-static"])
     subprocess.run(["$env:VCPKG_PATH", "=", "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static"])
 
 def setup_extension():
