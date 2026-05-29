@@ -31,21 +31,20 @@ import logging
 import platform
 from setuptools import setup, Extension
 import sys
+import subprocess
 
 __version__ = "0.2.14"
 
-# setup.py/setuptools will try to locate and link dynamically against portaudio,
-# except on Windows. On Windows, setup.py will attempt to statically link in
-# portaudio, since most users will install PyAudio from pre-compiled wheels.
-#
-# If you wish to compile PyAudio on Windows, use vcpkg to install portaudio with
-# either:
-#  - vcpkg install portaudio (for dynamic linking)
-#  - vcpkg install portaudio:x86-windows-static (for 32-bit static linking)
-#  - vcpkg install portaudio:x64-windows-static (for 64-bit static linking)
-
 MAC_SYSROOT_PATH = os.environ.get("SYSROOT_PATH", None)
 WIN_VCPKG_PATH = os.environ.get("VCPKG_PATH", None)
+
+if sys.platform == "linux" or sys.platform == "linux2":
+    subprocess.run(["sudo", "apt-get", "update"])
+    subprocess.run(["sudo", "apt-get", "install", "-y", "portaudio19-dev", "python3-dev"])
+elif sys.platform == "darwin":
+    subprocess.run(["brew", "install", "portaudio"])
+elif sys.platform == "win32":
+    subprocess.run(["vcpkg", "apt-get", "portaudio:x64-windows-static"])
 
 def setup_extension():
     pyaudio_module_sources = [
