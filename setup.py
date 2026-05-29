@@ -35,9 +35,6 @@ import subprocess
 
 __version__ = "0.2.14"
 
-MAC_SYSROOT_PATH = os.environ.get("SYSROOT_PATH", None)
-WIN_VCPKG_PATH = os.environ.get("VCPKG_PATH", None)
-
 if sys.platform == "linux" or sys.platform == "linux2":
     subprocess.run(["sudo", "apt-get", "update"])
     subprocess.run(["sudo", "apt-get", "install", "-y", "portaudio19-dev", "python3-dev"])
@@ -45,9 +42,10 @@ elif sys.platform == "darwin":
     subprocess.run(["brew", "install", "portaudio"])
 elif sys.platform == "win32":
     subprocess.run(["vcpkg", "install", "portaudio:x64-windows-static"])
-    print("Downloaded")
     os.environ["VCPKG_PATH"] = os.environ["VCPKG_INSTALLATION_ROOT"] + "\\installed\\x64-windows-static"
-    print(os.environ)
+    
+MAC_SYSROOT_PATH = os.environ.get("SYSROOT_PATH", None)
+WIN_VCPKG_PATH = os.environ.get("VCPKG_PATH", None)
 
 def setup_extension():
     pyaudio_module_sources = [
